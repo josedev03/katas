@@ -29,10 +29,28 @@
           <div class="card card-body mt-2">
             <h5><%= tarea.task %></h5>
             <p><%=tarea.description%></p>
+            <button onclick="deleteTask('<%= tarea._id%>')">Delete</button>
           </div>
         <% }) %>
 			</div>
 		</div>
 	</div>
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+  <script>
+    function deleteTask(id){
+      $.ajax({
+        method: "DELETE",
+        url: "delete",
+        data: { taskid: id},
+        success: function(respuesta) {
+          location.href = '/'
+        },
+        error: function(error) {
+          const a = error.responseJSON.errors.message
+          console.log(a)
+        }
+      })
+    }
+  </script>
 </body>
 </html>
